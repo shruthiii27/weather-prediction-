@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import WeatherSearch from '../components/WeatherSearch';
 import CurrentWeather from '../components/CurrentWeather';
@@ -23,9 +22,152 @@ const Index = () => {
     try {
       console.log('Searching for city:', cityName);
       
-      // Note: This will fail in demo mode - user needs their own API key
-      if (cityName.toLowerCase() === 'demo') {
+      // Demo examples for Chennai and New York
+      if (cityName.toLowerCase() === 'chennai') {
         // Mock data for Chennai
+        const mockWeatherData: WeatherData = {
+          coord: { lat: 13.0827, lon: 80.2707 },
+          weather: [{ id: 802, main: 'Clouds', description: 'scattered clouds', icon: '03d' }],
+          base: 'stations',
+          main: {
+            temp: 32,
+            feels_like: 38,
+            temp_min: 29,
+            temp_max: 35,
+            pressure: 1008,
+            humidity: 68
+          },
+          visibility: 8000,
+          wind: { speed: 4.5, deg: 210 },
+          clouds: { all: 40 },
+          dt: Math.floor(Date.now() / 1000),
+          sys: { type: 1, id: 9218, country: 'IN', sunrise: 1640645400, sunset: 1640686800 },
+          timezone: 19800,
+          id: 1264527,
+          name: 'Chennai',
+          cod: 200
+        };
+
+        const mockForecastData: ForecastData = {
+          cod: '200',
+          message: 0,
+          cnt: 40,
+          list: Array.from({ length: 8 }, (_, i) => ({
+            dt: Math.floor(Date.now() / 1000) + (i + 1) * 3600,
+            main: {
+              temp: 32 + Math.random() * 4 - 2,
+              feels_like: 38 + Math.random() * 4 - 2,
+              temp_min: 29,
+              temp_max: 35,
+              pressure: 1008,
+              sea_level: 1008,
+              grnd_level: 1008,
+              humidity: 68 + Math.random() * 15 - 7,
+              temp_kf: 0
+            },
+            weather: [{ id: 802, main: 'Clouds', description: 'scattered clouds', icon: '03d' }],
+            clouds: { all: 40 },
+            wind: { speed: 4.5, deg: 210, gust: 6.2 },
+            visibility: 8000,
+            pop: 0.2,
+            sys: { pod: 'd' },
+            dt_txt: new Date(Date.now() + (i + 1) * 3600000).toISOString()
+          })),
+          city: {
+            id: 1264527,
+            name: 'Chennai',
+            coord: { lat: 13.0827, lon: 80.2707 },
+            country: 'IN',
+            population: 4646732,
+            timezone: 19800,
+            sunrise: 1640645400,
+            sunset: 1640686800
+          }
+        };
+
+        setCurrentWeather(mockWeatherData);
+        setForecastData(mockForecastData);
+        toast({
+          title: "Demo Mode",
+          description: "Showing demo data for Chennai, India.",
+        });
+        return;
+      }
+
+      if (cityName.toLowerCase() === 'new york') {
+        // Mock data for New York
+        const mockWeatherData: WeatherData = {
+          coord: { lat: 40.7128, lon: -74.0060 },
+          weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01d' }],
+          base: 'stations',
+          main: {
+            temp: 18,
+            feels_like: 16,
+            temp_min: 15,
+            temp_max: 22,
+            pressure: 1015,
+            humidity: 45
+          },
+          visibility: 16000,
+          wind: { speed: 3.2, deg: 180 },
+          clouds: { all: 5 },
+          dt: Math.floor(Date.now() / 1000),
+          sys: { type: 1, id: 4610, country: 'US', sunrise: 1640682000, sunset: 1640718000 },
+          timezone: -18000,
+          id: 5128581,
+          name: 'New York',
+          cod: 200
+        };
+
+        const mockForecastData: ForecastData = {
+          cod: '200',
+          message: 0,
+          cnt: 40,
+          list: Array.from({ length: 8 }, (_, i) => ({
+            dt: Math.floor(Date.now() / 1000) + (i + 1) * 3600,
+            main: {
+              temp: 18 + Math.random() * 6 - 3,
+              feels_like: 16 + Math.random() * 6 - 3,
+              temp_min: 15,
+              temp_max: 22,
+              pressure: 1015,
+              sea_level: 1015,
+              grnd_level: 1015,
+              humidity: 45 + Math.random() * 20 - 10,
+              temp_kf: 0
+            },
+            weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01d' }],
+            clouds: { all: 5 },
+            wind: { speed: 3.2, deg: 180, gust: 4.8 },
+            visibility: 16000,
+            pop: 0.0,
+            sys: { pod: 'd' },
+            dt_txt: new Date(Date.now() + (i + 1) * 3600000).toISOString()
+          })),
+          city: {
+            id: 5128581,
+            name: 'New York',
+            coord: { lat: 40.7128, lon: -74.0060 },
+            country: 'US',
+            population: 8175133,
+            timezone: -18000,
+            sunrise: 1640682000,
+            sunset: 1640718000
+          }
+        };
+
+        setCurrentWeather(mockWeatherData);
+        setForecastData(mockForecastData);
+        toast({
+          title: "Demo Mode",
+          description: "Showing demo data for New York, USA.",
+        });
+        return;
+      }
+
+      // Keep backward compatibility with "demo"
+      if (cityName.toLowerCase() === 'demo') {
+        // Default to Chennai for demo
         const mockWeatherData: WeatherData = {
           coord: { lat: 13.0827, lon: 80.2707 },
           weather: [{ id: 802, main: 'Clouds', description: 'scattered clouds', icon: '03d' }],
@@ -120,7 +262,7 @@ const Index = () => {
       const errorMessage = err instanceof Error ? err.message : 'Failed to fetch weather data';
       
       if (errorMessage.includes('401') || errorMessage.includes('Invalid API key')) {
-        setError('Please add your OpenWeatherMap API key to get real weather data. Type "demo" to see sample data.');
+        setError('Please add your OpenWeatherMap API key to get real weather data. Try "Chennai" or "New York" to see demo data.');
       } else {
         setError(errorMessage);
       }
@@ -178,10 +320,11 @@ const Index = () => {
           <div className="text-center text-white/80 py-12">
             <div className="max-w-md mx-auto">
               <h3 className="text-xl font-semibold mb-4">Ready to explore the weather?</h3>
-              <p className="mb-6">Enter any city name above to get started, or type "demo" to see sample data.</p>
+              <p className="mb-6">Enter any city name above to get started, or try "Chennai" or "New York" to see demo data.</p>
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-sm">
-                <p className="font-medium mb-2">💡 Pro tip:</p>
-                <p>Add your OpenWeatherMap API key in the weatherService.ts file for real weather data!</p>
+                <p className="font-medium mb-2">💡 Demo examples:</p>
+                <p className="mb-1">• Type "Chennai" for hot tropical weather</p>
+                <p>• Type "New York" for cooler clear weather</p>
               </div>
             </div>
           </div>
