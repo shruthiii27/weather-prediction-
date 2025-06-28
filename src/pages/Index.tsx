@@ -25,27 +25,27 @@ const Index = () => {
       
       // Note: This will fail in demo mode - user needs their own API key
       if (cityName.toLowerCase() === 'demo') {
-        // Mock data for demo purposes
+        // Mock data for Chennai
         const mockWeatherData: WeatherData = {
-          coord: { lat: 40.7128, lon: -74.0060 },
-          weather: [{ id: 801, main: 'Clouds', description: 'few clouds', icon: '02d' }],
+          coord: { lat: 13.0827, lon: 80.2707 },
+          weather: [{ id: 802, main: 'Clouds', description: 'scattered clouds', icon: '03d' }],
           base: 'stations',
           main: {
-            temp: 22,
-            feels_like: 24,
-            temp_min: 18,
-            temp_max: 26,
-            pressure: 1013,
-            humidity: 65
+            temp: 32,
+            feels_like: 38,
+            temp_min: 29,
+            temp_max: 35,
+            pressure: 1008,
+            humidity: 68
           },
-          visibility: 10000,
-          wind: { speed: 3.5, deg: 230 },
-          clouds: { all: 20 },
+          visibility: 8000,
+          wind: { speed: 4.5, deg: 210 },
+          clouds: { all: 40 },
           dt: Math.floor(Date.now() / 1000),
-          sys: { type: 1, id: 1234, country: 'US', sunrise: 1640682000, sunset: 1640718000 },
-          timezone: -18000,
-          id: 5128581,
-          name: 'New York',
+          sys: { type: 1, id: 9218, country: 'IN', sunrise: 1640645400, sunset: 1640686800 },
+          timezone: 19800,
+          id: 1264527,
+          name: 'Chennai',
           cod: 200
         };
 
@@ -56,33 +56,33 @@ const Index = () => {
           list: Array.from({ length: 8 }, (_, i) => ({
             dt: Math.floor(Date.now() / 1000) + (i + 1) * 3600,
             main: {
-              temp: 22 + Math.random() * 6 - 3,
-              feels_like: 24 + Math.random() * 6 - 3,
-              temp_min: 18,
-              temp_max: 26,
-              pressure: 1013,
-              sea_level: 1013,
-              grnd_level: 1013,
-              humidity: 65 + Math.random() * 20 - 10,
+              temp: 32 + Math.random() * 4 - 2,
+              feels_like: 38 + Math.random() * 4 - 2,
+              temp_min: 29,
+              temp_max: 35,
+              pressure: 1008,
+              sea_level: 1008,
+              grnd_level: 1008,
+              humidity: 68 + Math.random() * 15 - 7,
               temp_kf: 0
             },
-            weather: [{ id: 801, main: 'Clouds', description: 'few clouds', icon: '02d' }],
-            clouds: { all: 20 },
-            wind: { speed: 3.5, deg: 230, gust: 4.5 },
-            visibility: 10000,
-            pop: 0.1,
+            weather: [{ id: 802, main: 'Clouds', description: 'scattered clouds', icon: '03d' }],
+            clouds: { all: 40 },
+            wind: { speed: 4.5, deg: 210, gust: 6.2 },
+            visibility: 8000,
+            pop: 0.2,
             sys: { pod: 'd' },
             dt_txt: new Date(Date.now() + (i + 1) * 3600000).toISOString()
           })),
           city: {
-            id: 5128581,
-            name: 'New York',
-            coord: { lat: 40.7128, lon: -74.0060 },
-            country: 'US',
-            population: 8175133,
-            timezone: -18000,
-            sunrise: 1640682000,
-            sunset: 1640718000
+            id: 1264527,
+            name: 'Chennai',
+            coord: { lat: 13.0827, lon: 80.2707 },
+            country: 'IN',
+            population: 4646732,
+            timezone: 19800,
+            sunrise: 1640645400,
+            sunset: 1640686800
           }
         };
 
@@ -90,7 +90,7 @@ const Index = () => {
         setForecastData(mockForecastData);
         toast({
           title: "Demo Mode",
-          description: "Showing demo data for New York. Add your OpenWeatherMap API key for real data.",
+          description: "Showing demo data for Chennai. Add your OpenWeatherMap API key for real data.",
         });
         return;
       }
