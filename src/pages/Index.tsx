@@ -315,20 +315,6 @@ const Index = () => {
             )}
           </div>
         )}
-
-        {!currentWeather && !isLoading && !error && (
-          <div className="text-center text-white/80 py-12">
-            <div className="max-w-md mx-auto">
-              <h3 className="text-xl font-semibold mb-4">Ready to explore the weather?</h3>
-              <p className="mb-6">Enter any city name above to get started, or try "Chennai" or "New York" to see demo data.</p>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-sm">
-                <p className="font-medium mb-2">💡 Demo examples:</p>
-                <p className="mb-1">• Type "Chennai" for hot tropical weather</p>
-                <p>• Type "New York" for cooler clear weather</p>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
